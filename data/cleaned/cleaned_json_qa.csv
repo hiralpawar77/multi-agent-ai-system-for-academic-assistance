@@ -1,0 +1,13 @@
+id,student_query,subject,grade_level,agent_type,response_time_sec,student_rating,resolved,timestamp,session_id
+QA001,What is Newton's second law?,Physics,10,Q&A,3.2,4.0,Yes,2024-01-10 09:15:00,S001
+QA002,Explain photosynthesis in detail,Biology,9,Q&A,5.1,5.0,Yes,2024-01-10 10:02:00,S002
+QA003,How do I solve quadratic equations?,Mathematics,11,Q&A,4.8,3.0,Yes,2024-01-10 11:30:00,S003
+QA004,What caused World War I?,History,10,Q&A,unknown,unknown,No,2024-01-11 08:45:00,S004
+QA005,Difference between mitosis and meiosis,Biology,12,Q&A,6.0,5.0,Yes,2024-01-11 09:00:00,S005
+QA006,What is Ohm's Law?,Physics,11,Q&A,2.9,4.0,Yes,2024-01-11 10:15:00,S006
+QA007,Explain the French Revolution,History,9,Q&A,7.2,999.0,Yes,2024-01-12 08:00:00,S007
+QA008,,Chemistry,10,Q&A,1.1,2.0,Yes,2024-01-12 09:30:00,S008
+QA009,What is the Pythagorean theorem?,Math,8,Q&A,3.5,4.0,Yes,2024-01-12 11:00:00,S009
+QA010,Explain covalent bonding,Chemistry,11,Q&A,4.4,5.0,Yes,2024-01-13 10:00:00,S010
+QA011,What is the water cycle?,Geography,7,Q&A,-1.0,3.0,Yes,2024-01-13 11:00:00,S011
+QA012,Define democracy,Civics,9,Q&A,2.1,4.0,YES,2024-01-14 09:00:00,S012

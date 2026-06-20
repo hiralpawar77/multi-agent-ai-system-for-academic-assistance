@@ -1,0 +1,11 @@
+id,student_id,subject,planned_date,study_duration_min,completed,agent_suggestion,difficulty_level,performance_after,timestamp
+SP001,STU101,Mathematics,2024-01-15,60,Yes,Yes,Hard,78,2024-01-15 18:00:00
+SP002,STU102,Physics,2024-01-15,45,Yes,Yes,Medium,82,2024-01-15 19:00:00
+SP003,STU103,Chemistry,2024-01-16,-30,No,Yes,Easy,,2024-01-16 09:00:00
+SP004,STU101,Biology,2024-01-16,90,Yes,No,Medium,88,2024-01-16 20:00:00
+SP005,STU104,English,2024-01-17,30,yes,Yes,easy,75,2024-01-17 08:00:00
+SP006,STU105,History,2024-01-17,60,No,Yes,Hard,,2024-01-17 09:00:00
+SP007,STU102,Mathematics,2024-01-18,75,Yes,Yes,Hard,85,2024-01-18 17:00:00
+SP008,STU106,Geography,2024-01-18,50,Yes,No,Medium,80,2024-01-18 19:00:00
+SP009,,Civics,2024-01-19,40,Yes,Yes,Easy,90,2024-01-19 10:00:00
+SP010,STU103,Chemistry,2024-01-19,60,Yes,Yes,Hard,72,2024-01-19 20:00:00
