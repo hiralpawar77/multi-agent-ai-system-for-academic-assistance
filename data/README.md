@@ -14,16 +14,16 @@ for Academic Assistance project.
 
 | Dataset                               | Source         | Purpose                           |
 |---------------------------------------|----------------|-----------------------------------|
-| academic_ai_raw_data                  | Kaggle         | General academic AI data          |
+| academic_ai_raw_data                  | AI generated   | General academic AI data          |
 | ai_dependency_career_anxiety_students | Kaggle         | Student career & anxiety analysis |
 | coursea_data                          | Kaggle         | Course recommendation agent       |
-| essay_assistance_raw                  | Kaggle         | Essay writing assistance agent    |
+| essay_assistance_raw                  | AI generated   | Essay writing assistance agent    |
 | python_faq_dataset                    | Kaggle         | Python tutoring agent             |
-| qa_interactions_raw                   | Kaggle         | General Q&A interaction agent     |
+| qa_interactions_raw                   | AI generated   | General Q&A interaction agent     |
 | student-por                           | Kaggle (UCI)   | Portuguese student performance    |
 | studentAssessment                     | Kaggle (OULAD) | Student assessment tracking       |
 | StudentsPerformance                   | Kaggle         | Student exam performance          |
-| study_schedules_raw                   | Kaggle         | Study planning agent              |
+| study_schedules_raw                   |  AI generated  | Study planning agent              |
 | thinkpython2.pdf                      | Open Textbook  | Python reference material         |
 
 ## Notes
