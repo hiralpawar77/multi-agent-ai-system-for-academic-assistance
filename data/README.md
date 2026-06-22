@@ -27,6 +27,6 @@ for Academic Assistance project.
 | thinkpython2.pdf                      | Open Textbook  | Python reference material         |
 
 ## Notes
-All datasets were sourced from Kaggle.com and selected based on 
+Most datasets were sourced from Kaggle.com and selected based on 
 relevance to academic assistance use cases including tutoring, 
 performance tracking, career guidance, and study planning.
