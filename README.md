@@ -6,27 +6,33 @@ research, study tips, and academic questions using a multi-agent architecture.
 ---
 
 ## Project Structure
+
+```
 multi-agent-ai-system-for-academic-assistance/
+│
 ├── README.md
+│
 ├── data/
 │   ├── README.md
-│   ├── raw/          ← Original datasets
-│   └── cleaned/      ← Preprocessed datasets
+│   ├── raw/                         ← Original datasets
+│   └── cleaned/                     ← Preprocessed datasets
+│
 ├── src/
 │   ├── README.md
-│   ├── app.py                    ← Flask backend server
-│   ├── index.html                ← Frontend chat interface
-│   ├── architecture_diagram.py   ← Architecture diagram generator
-│   └── data_cleaning.ipynb       ← Data cleaning notebook
+│   ├── app.py                       ← Flask backend server
+│   ├── index.html                   ← Frontend chat interface
+│   ├── architecture_diagram.py      ← Architecture diagram generator
+│   └── data_cleaning.ipynb          ← Data cleaning notebook
+│
 ├── reports/
 │   ├── README.md
-│   ├── architecture_diagram.png  ← System architecture diagram
-│   ├── API_specification.md      ← API documentation
-│   └── technical_report.md       ← Technical report
+│   ├── architecture_diagram.png     ← System architecture diagram
+│   ├── API_specification.md         ← API documentation
+│   └── technical_report.md          ← Technical report
+│
 └── deployment/
-└── README.md
-
----
+    └── README.md
+```
 
 ## System Architecture
 
