@@ -35,3 +35,8 @@ this folder contains weekly reports, metrics, and final documentation.
 - The largest dataset was studentAssessment with 173,912 rows
 - All datasets are now stored in data/cleaned/ folder
 - Total records processed: 213,183 rows across 10 datasets
+
+## Week 3 Additions
+- `architecture_diagram.png` — System architecture diagram
+- `API_specification.md` — Full API documentation with all endpoints
+- `technical_report.md` — Full technical report of the project
