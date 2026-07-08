@@ -20,6 +20,15 @@ users = {
 feedback_store = []
 
 # ─────────────────────────────────────────
+# HELPER: Standard error response
+# ─────────────────────────────────────────
+def error_response(message, status_code=400):
+    return jsonify({
+        "status": "error",
+        "message": message
+    }), status_code
+
+# ─────────────────────────────────────────
 # 1. HEALTH CHECK
 # ─────────────────────────────────────────
 @app.route('/api/health', methods=['GET'])
@@ -31,34 +40,44 @@ def health_check():
     })
 
 # ─────────────────────────────────────────
-# 2. CHAT ENDPOINT (now with real AI!)
+# 2. CHAT ENDPOINT
 # ─────────────────────────────────────────
 @app.route('/api/chat', methods=['POST'])
 def chat():
+    # Check request has JSON
+    if not request.is_json:
+        return error_response("Request must be JSON", 400)
+
+    data = request.get_json()
+
+    # Check required fields
+    if not data:
+        return error_response("Request body is empty", 400)
+
+    message = data.get('message', '').strip()
+    user_id = data.get('user_id', 'anonymous')
+
+    # Validate message
+    if not message:
+        return error_response("Message field is required and cannot be empty", 400)
+
+    if len(message) > 2000:
+        return error_response("Message is too long. Maximum 2000 characters allowed", 400)
+
     try:
-        data = request.get_json()
-        user_id = data.get('user_id', 'anonymous')
-        message = data.get('message', '')
-
-        if not message:
-            return jsonify({
-                "status": "error",
-                "message": "No message provided"
-            }), 400
-
         # Build conversation history for context
         history = chat_history.get(user_id, [])
         messages_for_ai = [
             {
                 "role": "system",
-                "content": """You are a helpful academic assistant for students. 
-                You help with essays, explanations, research, study tips, 
+                "content": """You are a helpful academic assistant for students.
+                You help with essays, explanations, research, study tips,
                 and academic questions. Be clear, friendly, and educational."""
             }
         ]
 
         # Add previous messages for context
-        for msg in history[-10:]:  # Last 10 messages
+        for msg in history[-10:]:
             messages_for_ai.append({
                 "role": "user" if msg["role"] == "user" else "assistant",
                 "content": msg["message"]
@@ -75,7 +94,8 @@ def chat():
             model="llama-3.3-70b-versatile",
             messages=messages_for_ai,
             max_tokens=1024,
-            temperature=0.7
+            temperature=0.7,
+            timeout=30  # Timeout after 30 seconds
         )
 
         ai_response = completion.choices[0].message.content
@@ -101,53 +121,55 @@ def chat():
         })
 
     except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+        error_msg = str(e)
+
+        # Handle specific error types
+        if "timeout" in error_msg.lower():
+            return error_response("AI model took too long to respond. Please try again.", 504)
+        elif "api_key" in error_msg.lower() or "authentication" in error_msg.lower():
+            return error_response("AI service authentication failed. Please contact support.", 401)
+        elif "rate_limit" in error_msg.lower():
+            return error_response("Too many requests. Please wait a moment and try again.", 429)
+        else:
+            return error_response(f"AI service error: {error_msg}", 500)
 
 # ─────────────────────────────────────────
 # 3. CHAT HISTORY ENDPOINT
 # ─────────────────────────────────────────
 @app.route('/api/history', methods=['GET'])
 def get_history():
-    try:
-        user_id = request.args.get('user_id', 'anonymous')
-        history = chat_history.get(user_id, [])
+    user_id = request.args.get('user_id', '').strip()
 
+    if not user_id:
+        return error_response("user_id parameter is required", 400)
+
+    try:
+        history = chat_history.get(user_id, [])
         return jsonify({
             "status": "success",
             "user_id": user_id,
-            "history": history
+            "history": history,
+            "total_messages": len(history)
         })
 
     except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+        return error_response(f"Failed to retrieve history: {str(e)}", 500)
 
 # ─────────────────────────────────────────
 # 4. USERS ENDPOINT
 # ─────────────────────────────────────────
 @app.route('/api/users', methods=['GET'])
 def get_user():
+    user_id = request.args.get('user_id', '').strip()
+
+    if not user_id:
+        return error_response("user_id parameter is required", 400)
+
     try:
-        user_id = request.args.get('user_id', '')
-
-        if not user_id:
-            return jsonify({
-                "status": "error",
-                "message": "user_id is required"
-            }), 400
-
         user = users.get(user_id)
 
         if not user:
-            return jsonify({
-                "status": "error",
-                "message": "User not found"
-            }), 404
+            return error_response(f"User with id '{user_id}' not found", 404)
 
         return jsonify({
             "status": "success",
@@ -155,28 +177,33 @@ def get_user():
         })
 
     except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+        return error_response(f"Failed to retrieve user: {str(e)}", 500)
 
 # ─────────────────────────────────────────
 # 5. FEEDBACK ENDPOINT
 # ─────────────────────────────────────────
 @app.route('/api/feedback', methods=['POST'])
 def feedback():
+    if not request.is_json:
+        return error_response("Request must be JSON", 400)
+
+    data = request.get_json()
+
+    if not data:
+        return error_response("Request body is empty", 400)
+
+    user_id = data.get('user_id', 'anonymous')
+    rating = data.get('rating')
+    comment = data.get('comment', '').strip()
+
+    # Validate rating
+    if rating is None:
+        return error_response("Rating field is required", 400)
+
+    if not isinstance(rating, int) or rating < 1 or rating > 5:
+        return error_response("Rating must be a number between 1 and 5", 400)
+
     try:
-        data = request.get_json()
-        user_id = data.get('user_id', 'anonymous')
-        rating = data.get('rating', 0)
-        comment = data.get('comment', '')
-
-        if not rating:
-            return jsonify({
-                "status": "error",
-                "message": "Rating is required"
-            }), 400
-
         feedback_store.append({
             "user_id": user_id,
             "rating": rating,
@@ -186,19 +213,30 @@ def feedback():
 
         return jsonify({
             "status": "success",
-            "message": "Feedback recorded, thank you!"
+            "message": f"Feedback recorded. Thank you for rating {rating}/5!"
         })
 
     except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+        return error_response(f"Failed to save feedback: {str(e)}", 500)
+
+# ─────────────────────────────────────────
+# HANDLE 404 - Route not found
+# ─────────────────────────────────────────
+@app.errorhandler(404)
+def not_found(e):
+    return error_response("Endpoint not found", 404)
+
+# ─────────────────────────────────────────
+# HANDLE 405 - Method not allowed
+# ─────────────────────────────────────────
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return error_response("Method not allowed for this endpoint", 405)
 
 # ─────────────────────────────────────────
 # RUN SERVER
 # ─────────────────────────────────────────
 if __name__ == '__main__':
-    print("Starting Flask server with Groq AI...")
+    print("Starting Flask server with error handling...")
     print("Visit http://localhost:5000/api/health to test")
     app.run(debug=True, port=5000)
