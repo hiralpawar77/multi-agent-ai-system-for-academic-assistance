@@ -239,4 +239,4 @@ def method_not_allowed(e):
 if __name__ == '__main__':
     print("Starting Flask server with error handling...")
     print("Visit http://localhost:5000/api/health to test")
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
