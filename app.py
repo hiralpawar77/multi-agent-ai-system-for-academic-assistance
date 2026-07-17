@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from datetime import datetime
 from groq import Groq
@@ -27,6 +27,11 @@ def error_response(message, status_code=400):
         "status": "error",
         "message": message
     }), status_code
+
+# ── SERVE FRONTEND ──
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('.', 'index.html')
 
 # ─────────────────────────────────────────
 # 1. HEALTH CHECK

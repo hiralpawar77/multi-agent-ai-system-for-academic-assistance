@@ -529,7 +529,7 @@
     showLoading();
 
     try {
-      const res = await fetch('http://localhost:5000/api/chat', {
+      const res = await fetch('https://web-production-ffbc.up.railway.app/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: USER_ID, message })
@@ -560,7 +560,7 @@
     if (label) label.textContent = `Thanks for rating ${rating}/5!`;
 
     try {
-      await fetch('http://localhost:5000/api/feedback', {
+      await fetch('https://web-production-ffbc.up.railway.app/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: USER_ID, rating, comment: 'Rated from UI' })
