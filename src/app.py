@@ -31,7 +31,7 @@ def error_response(message, status_code=400):
 # ── SERVE FRONTEND ──
 @app.route('/')
 def serve_frontend():
-    return send_from_directory('.', 'index.html')
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'index.html')
 
 # ─────────────────────────────────────────
 # 1. HEALTH CHECK
