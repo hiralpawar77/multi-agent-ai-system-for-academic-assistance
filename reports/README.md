@@ -47,4 +47,4 @@ this folder contains weekly reports, metrics, and final documentation.
 | `technical_report.md` | Complete project technical report |
 | `api_testing_report.md` | Automated test results — 17/17 passed |
 | `deployment_report.md` | Railway deployment steps and live URL |
-| `demo_video_script.md` | Script used for the demo video |
+| `Presentation.pptx` | Project presentation slides |
