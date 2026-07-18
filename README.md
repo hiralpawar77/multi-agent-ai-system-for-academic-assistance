@@ -102,6 +102,9 @@ python src/app.py
 | Week 2 | Data cleaning and preprocessing | ✅ Done |
 | Week 3 | System design, backend, frontend, documentation | ✅ Done |
 
+## Demo Video
+[Watch the demo video here] https://youtu.be/i3tLdPjtJb4
+
 ---
 
 ## Author
