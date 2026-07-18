@@ -36,7 +36,15 @@ this folder contains weekly reports, metrics, and final documentation.
 - All datasets are now stored in data/cleaned/ folder
 - Total records processed: 213,183 rows across 10 datasets
 
-## Week 3 Additions
-- `architecture_diagram.png` — System architecture diagram
-- `API_specification.md` — Full API documentation with all endpoints
-- `technical_report.md` — Full technical report of the project
+
+## Week 3 — Week 5 Reports
+
+| File | Description |
+|---|---|
+| `architecture_diagram.png` | System architecture showing all 4 layers |
+| `sequence_diagram.png` | Step-by-step request flow diagram |
+| `API_specification.md` | Full documentation of all 5 API endpoints |
+| `technical_report.md` | Complete project technical report |
+| `api_testing_report.md` | Automated test results — 17/17 passed |
+| `deployment_report.md` | Railway deployment steps and live URL |
+| `demo_video_script.md` | Script used for the demo video |
